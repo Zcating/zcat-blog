@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Card } from "@blog/ui";
 
 export function meta() {
   return [

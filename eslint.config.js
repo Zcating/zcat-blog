@@ -25,8 +25,8 @@ export default defineConfig([
       'check-file/filename-naming-convention': [
         'error',
         {
-          '**/*.{jsx,tsx,js,ts}': 'KEBAB_CASE',
           '**/*.component.{jsx,tsx,js,ts}': 'KEBAB_CASE',
+          '**/*.{jsx,tsx,js,ts}': 'KEBAB_CASE',
         },
       ],
       'check-file/folder-naming-convention': [
