@@ -15,13 +15,13 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "@root": ["./app/*"],
       "@blog/components": ["./app/components"],
       "@blog/components/*": ["./app/components/*"],
       "@blog/modules": ["./app/modules"],
       "@blog/modules/*": ["./app/modules/*"],
       "@blog/routes": ["./app/routes"],
-      "@blog/routes/*": ["./app/routes/*"]
+      "@blog/routes/*": ["./app/routes/*"],
+      "@root": ["./app/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

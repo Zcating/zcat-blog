@@ -16,4 +16,3 @@
 
 如果需要新增自定义组件，麻烦把对应的代码添加到 app/ui/components 目录下使用。
 先增加组件文件夹，然后增加组件文件，然后再 app/ui/components/index.ts 导出。
-
