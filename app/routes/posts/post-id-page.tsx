@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 
 
-export default function PostId() {
+export default function PostIdPage() {
   const { id } = useParams();
   
   return (

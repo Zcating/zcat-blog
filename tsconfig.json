@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@root": ["./app/*"],
-      "@blog/ui": ["./app/ui"],
-      "@blog/ui/*": ["./app/ui/*"],
+      "@blog/components": ["./app/components"],
+      "@blog/components/*": ["./app/components/*"],
       "@blog/modules": ["./app/modules"],
       "@blog/modules/*": ["./app/modules/*"],
       "@blog/routes": ["./app/routes"],

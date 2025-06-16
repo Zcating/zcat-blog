@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Card } from "@blog/ui";
+import { Card } from "@blog/components";
 
 export function meta() {
   return [
@@ -9,18 +9,22 @@ export function meta() {
 }
 
 // 首页文章列表实现
-export default function Home() {
+export default function HomePage() {
   const posts = [
     { id: 1, title: '第一篇文章', excerpt: '这是第一篇文章的摘要...', date: '2023-10-01' },
     { id: 2, title: '第二篇文章', excerpt: '这是第二篇文章的摘要...', date: '2023-10-02' },
   ];
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto space-y-4">
       {posts.map(post => (
         <Card key={post.id}>
-          <Link to={`/posts/${post.id}`}>
-            <h2>{post.title}</h2>
-          </Link>
+          <div className="p-6">
+            <Link to={`/posts/${post.id}`} className="hover:text-primary">
+              <h2 className="text-xl font-semibold">{post.title}</h2>
+            </Link>
+            <p className="text-muted-foreground mt-2">{post.excerpt}</p>
+            <p className="text-sm text-muted-foreground mt-4">{post.date}</p>
+          </div>
         </Card>
       ))}
     </div>

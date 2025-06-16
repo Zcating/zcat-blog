@@ -10,6 +10,9 @@
     "lint": "eslint --ext .ts,.tsx ./app --max-warnings 0"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "class-variance-authority": "^0.7.1",

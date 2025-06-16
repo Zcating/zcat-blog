@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 
-export default function Posts() {
+export default function PostsPage() {
   return (
     <div>
       <h1>博客文章</h1>
