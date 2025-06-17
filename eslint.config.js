@@ -25,6 +25,7 @@ export default defineConfig([
     plugins: {
       "check-file": checkFile,
       react: pluginReact,
+      "@typescript-eslint": tseslint,
     },
     rules: {
       "react/react-in-jsx-scope": "off",
@@ -42,6 +43,7 @@ export default defineConfig([
           "app/**/!(__tests__)/": "KEBAB_CASE",
         },
       ],
+      "@typescript-eslint/no-namespace": "off",
     },
   },
 ]);

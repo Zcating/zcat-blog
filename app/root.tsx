@@ -25,7 +25,7 @@ export const links: Route.LinksFunction = () => [
 
 import type React from "react";
 
-import { BlogHeader } from "@blog/modules";
+import { BlogHeader, BlogFooter } from "@blog/modules";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,6 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="min-h-screen bg-background">
         <BlogHeader />
         {children}
+        <BlogFooter />
         <ScrollRestoration />
         <Scripts />
       </body>
