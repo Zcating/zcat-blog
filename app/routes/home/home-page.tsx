@@ -11,12 +11,22 @@ export function meta() {
 // 首页文章列表实现
 export default function HomePage() {
   const posts = [
-    { id: 1, title: '第一篇文章', excerpt: '这是第一篇文章的摘要...', date: '2023-10-01' },
-    { id: 2, title: '第二篇文章', excerpt: '这是第二篇文章的摘要...', date: '2023-10-02' },
+    {
+      id: 1,
+      title: "第一篇文章",
+      excerpt: "这是第一篇文章的摘要...",
+      date: "2023-10-01",
+    },
+    {
+      id: 2,
+      title: "第二篇文章",
+      excerpt: "这是第二篇文章的摘要...",
+      date: "2023-10-02",
+    },
   ];
   return (
     <div className="max-w-4xl mx-auto space-y-4">
-      {posts.map(post => (
+      {posts.map((post) => (
         <Card key={post.id}>
           <div className="p-6">
             <Link to={`/posts/${post.id}`} className="hover:text-primary">
