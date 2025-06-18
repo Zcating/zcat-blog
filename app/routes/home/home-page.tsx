@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Card } from "@blog/components";
+import { Card, View } from "@blog/components";
 
 export function meta() {
   return [
@@ -25,18 +25,18 @@ export default function HomePage() {
     },
   ];
   return (
-    <div className="max-w-4xl mx-auto space-y-4">
+    <View className="max-w-4xl mx-auto space-y-4">
       {posts.map((post) => (
         <Card key={post.id}>
-          <div className="p-6">
+          <View className="p-6">
             <Link to={`/posts/${post.id}`} className="hover:text-primary">
               <h2 className="text-xl font-semibold">{post.title}</h2>
             </Link>
             <p className="text-muted-foreground mt-2">{post.excerpt}</p>
             <p className="text-sm text-muted-foreground mt-4">{post.date}</p>
-          </div>
+          </View>
         </Card>
       ))}
-    </div>
+    </View>
   );
 }

@@ -6,7 +6,7 @@ interface GridProps<T> {
   rowClassName?: string;
   cols: number;
   items: T[];
-  renderItem: (item: T, index: number) => React.ReactNode;
+  renderItem: (item: T) => React.ReactNode;
 }
 
 export function Grid<T>(props: GridProps<T>) {
@@ -26,12 +26,15 @@ export function Grid<T>(props: GridProps<T>) {
     <div className="flex flex-col gap-4">
       {groups.map((items, index) => (
         <div
-          key={index}
+          key={`col-${index}`}
           className={cn("flex w-full px-4 gap-3", props.columnClassName)}
         >
-          {items.map((item) => (
-            <div key={index} className={cn("flex-1", props.rowClassName)}>
-              {props.renderItem(item, props.items.indexOf(item))}
+          {items.map((item, index) => (
+            <div
+              key={`row-${index}`}
+              className={cn("flex-1", props.rowClassName)}
+            >
+              {props.renderItem(item)}
             </div>
           ))}
           {filling(items).map((item, index) => (

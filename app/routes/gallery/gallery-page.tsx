@@ -1,5 +1,6 @@
 import {
   Card,
+  CardContent,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -7,9 +8,12 @@ import {
   CarouselPrevious,
   Dialog,
   DialogContent,
+  DialogOverlay,
+  DialogPortal,
   DialogTitle,
   DialogTrigger,
   Grid,
+  Image,
   type CarouselApi,
 } from "@blog/components";
 import React from "react";
@@ -64,49 +68,42 @@ const photos: PhotoData[] = [
 ];
 
 export default function GalleryPage() {
-  const [selectedPhoto, setSelectedPhoto] = React.useState<number>(-1);
-  const [api, setApi] = React.useState<CarouselApi>();
-  React.useEffect(() => {
-    if (!api || selectedPhoto === -1) {
-      return;
-    }
-    api.scrollTo(selectedPhoto);
-  }, [api]);
+  const [open, setOpen] = React.useState(false);
+  const [selectedPhoto, setSelectedPhoto] = React.useState<PhotoData>();
+  const handleClick = (value: PhotoData) => {
+    setSelectedPhoto(value);
+    setOpen(true);
+  };
 
   return (
     <div className="flex flex-col items-center gap-3">
       <h1>一些我拍的照片</h1>
-      <Dialog>
-        <Grid
-          cols={3}
-          columnClassName="px-40"
-          items={photos}
-          renderItem={(photo, index) => (
-            <DialogTrigger asChild onClick={() => setSelectedPhoto(index)}>
-              <Card className="cursor-pointer">
-                <img src={photo.url} alt={photo.title} />
-              </Card>
-            </DialogTrigger>
-          )}
-        />
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogTitle>照片详情</DialogTitle>
-          <Carousel setApi={setApi}>
-            <CarouselContent>
-              {photos.map((photo) => (
-                <CarouselItem key={photo.id}>
-                  <img key={photo.id} src={photo.url} alt={photo.title} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-          {/* {selectedPhoto ? (
-            <img src={selectedPhoto.url} alt={selectedPhoto.title} />
-          ) : null} */}
+      <Grid
+        cols={3}
+        columnClassName="px-40"
+        items={photos}
+        renderItem={(photo) => (
+          <PhotoItem value={photo} onClick={handleClick} />
+        )}
+      />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-[1200px]">
+          <DialogTitle>{selectedPhoto?.title}</DialogTitle>
+          <Image src={selectedPhoto?.url} alt={selectedPhoto?.title} />
         </DialogContent>
       </Dialog>
     </div>
+  );
+}
+
+interface PhotoItemProps {
+  value: PhotoData;
+  onClick: (value: PhotoData) => void;
+}
+function PhotoItem({ value, onClick }: PhotoItemProps) {
+  return (
+    <Card className="cursor-pointer !p-0" onClick={() => onClick(value)}>
+      <Image src={value.url} alt={value.title} />
+    </Card>
   );
 }

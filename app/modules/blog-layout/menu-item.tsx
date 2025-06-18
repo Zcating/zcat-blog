@@ -8,7 +8,7 @@ interface MenuItemProps {
 export function MenuItem(props: MenuItemProps) {
   const location = useLocation();
   return (
-    <NavigationMenuItem>
+    <NavigationMenuItem className="flex-1">
       <NavigationMenuLink asChild active={props.to === location.pathname}>
         <Link to={props.to}>{props.title}</Link>
       </NavigationMenuLink>
