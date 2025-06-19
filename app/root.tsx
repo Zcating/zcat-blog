@@ -25,7 +25,7 @@ export const links: Route.LinksFunction = () => [
 
 import type React from "react";
 
-import { BlogHeader, BlogFooter } from "@blog/modules";
+import { BlogHeader, BlogFooter, BlogContent } from "@blog/modules";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -38,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="min-h-screen bg-background">
         <BlogHeader />
-        {children}
+        <BlogContent>{children}</BlogContent>
         <BlogFooter />
         <ScrollRestoration />
         <Scripts />
@@ -79,3 +79,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+
+declare global {
+  interface PromiseConstructor {
+    timeout(ms: number): Promise<void>;
+  }
+}
+
+Promise.timeout = function (ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};

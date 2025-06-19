@@ -1,12 +1,20 @@
+import { photos } from "../mock-data/photos-mock";
+
 import { HttpClient } from "../http-client";
 export namespace GalleryApi {
-  export interface Gallery {
+  export interface Photo {
     id: string;
     title: string;
-    abstract: string;
+    url: string;
   }
 
-  export async function getPhotos() {
-    return HttpClient.get<Gallery[]>("/api/gallery");
+  interface GetPhotosParams {
+    page: number;
+  }
+
+  export async function getPhotos(params: GetPhotosParams) {
+    // return HttpClient.get<Photo[]>("/api/photos");
+    await Promise.timeout(1000);
+    return photos;
   }
 }

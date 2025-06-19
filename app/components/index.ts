@@ -7,5 +7,7 @@ export * from "./ui/dialog";
 export * from "./ui/carousel";
 export * from "./ui/view";
 export * from "./ui/image";
+export * from "./ui/pagination";
+export * from "./ui/skeleton";
 
 export * from "./utils";

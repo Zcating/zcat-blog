@@ -1,3 +1,5 @@
+import { cn } from "../utils";
+
 interface ImageProps {
   src?: string;
   alt?: string;
@@ -5,5 +7,11 @@ interface ImageProps {
 }
 export function Image(props: ImageProps) {
   const { src, alt, className } = props;
-  return <img className={`rounded-md ${className}`} src={src} alt={alt} />;
+  return (
+    <img
+      className={cn("rounded-md", className)}
+      src={src}
+      alt={alt}
+    />
+  );
 }

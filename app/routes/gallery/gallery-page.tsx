@@ -1,82 +1,46 @@
+import { GalleryApi } from "@blog/apis";
 import {
   Card,
-  CardContent,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   Dialog,
   DialogContent,
-  DialogOverlay,
-  DialogPortal,
   DialogTitle,
-  DialogTrigger,
   Grid,
   Image,
-  type CarouselApi,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  Skeleton,
+  View,
 } from "@blog/components";
-import React from "react";
-import { photoAssets } from "./assets";
+import React, { use } from "react";
+import type { Route } from "./+types/gallery-page";
 
 export function meta() {
   return [{ title: "相册" }, { name: "description", content: "个人技术博客" }];
 }
 
-interface PhotoData {
-  id: string;
-  title: string;
-  url: string;
+export async function clientLoader({ params }: Route.LoaderArgs) {
+  return {
+    photos: await GalleryApi.getPhotos({ page: 1 }),
+  };
 }
 
-const photos: PhotoData[] = [
-  {
-    id: "1",
-    title: "1",
-    url: photoAssets.p1,
-  },
-  {
-    id: "2",
-    title: "2",
-    url: photoAssets.p2,
-  },
-  {
-    id: "3",
-    title: "3",
-    url: photoAssets.p3,
-  },
-  {
-    id: "4",
-    title: "4",
-    url: photoAssets.p4,
-  },
-  {
-    id: "5",
-    title: "5",
-    url: photoAssets.p5,
-  },
-  {
-    id: "6",
-    title: "6",
-    url: photoAssets.p6,
-  },
-  {
-    id: "7",
-    title: "7",
-    url: photoAssets.p7,
-  },
-];
-
-export default function GalleryPage() {
+export default function GalleryPage(props: Route.ComponentProps) {
   const [open, setOpen] = React.useState(false);
-  const [selectedPhoto, setSelectedPhoto] = React.useState<PhotoData>();
-  const handleClick = (value: PhotoData) => {
+  const [selectedPhoto, setSelectedPhoto] = React.useState<GalleryApi.Photo>();
+  const handleClick = (value: GalleryApi.Photo) => {
     setSelectedPhoto(value);
     setOpen(true);
   };
 
+  const photos = props.loaderData.photos;
+
   return (
-    <div className="flex flex-col items-center gap-3">
+    <View className="flex flex-col items-center gap-3">
       <h1>一些我拍的照片</h1>
       <Grid
         cols={3}
@@ -86,24 +50,66 @@ export default function GalleryPage() {
           <PhotoItem value={photo} onClick={handleClick} />
         )}
       />
+      <Paginator />
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[1200px]">
-          <DialogTitle>{selectedPhoto?.title}</DialogTitle>
+        <DialogContent className="sm:max-w-[1200px] p-0" showCloseButton={false}>          
           <Image src={selectedPhoto?.url} alt={selectedPhoto?.title} />
         </DialogContent>
       </Dialog>
-    </div>
+    </View>
+  );
+}
+
+export function HydrateFallback() {
+  return (
+    <Grid
+      cols={3}
+      columnClassName="px-40"
+      items={[0, 0, 0, 0, 0, 0, 0]}
+      renderItem={() => (
+        <Skeleton className="w-full aspect-3/2 rounded-md" />
+      )}
+    />
   );
 }
 
 interface PhotoItemProps {
-  value: PhotoData;
-  onClick: (value: PhotoData) => void;
+  value: GalleryApi.Photo;
+  onClick: (value: GalleryApi.Photo) => void;
 }
 function PhotoItem({ value, onClick }: PhotoItemProps) {
   return (
-    <Card className="cursor-pointer !p-0" onClick={() => onClick(value)}>
+    <Card className="cursor-pointer !p-0 aspect-3/2 w-full" onClick={() => onClick(value)}>
       <Image src={value.url} alt={value.title} />
     </Card>
+  );
+}
+
+function Paginator() {
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="?page=1" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="?page=1" isActive>
+            1
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="?page=2">2</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="?page=3">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }
