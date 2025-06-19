@@ -13,12 +13,15 @@ export default defineConfig([
   eslintConfigPrettier,
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    plugins: { js },
-    extends: ["js/recommended"],
+    languageOptions: { globals: globals.browser },
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    languageOptions: { globals: globals.browser },
+    plugins: { js, react: pluginReact, "@typescript-eslint": tseslint },
+    extends: ["js/recommended"],
+    rules: {
+      "@typescript-eslint/no-namespace": "off",
+    },
   },
   {
     files: ["app/**/*.*"],
@@ -43,7 +46,6 @@ export default defineConfig([
           "app/**/!(__tests__)/": "KEBAB_CASE",
         },
       ],
-      "@typescript-eslint/no-namespace": "off",
     },
   },
 ]);

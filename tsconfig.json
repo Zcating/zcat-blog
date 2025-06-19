@@ -21,6 +21,8 @@
       "@blog/modules/*": ["./app/modules/*"],
       "@blog/routes": ["./app/routes"],
       "@blog/routes/*": ["./app/routes/*"],
+      "@blog/apis": ["./app/apis"],
+      "@blog/apis/*": ["./app/apis/*"],
       "@root": ["./app/*"]
     },
     "esModuleInterop": true,
