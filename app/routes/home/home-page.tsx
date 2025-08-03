@@ -13,13 +13,13 @@ export function meta() {
 
 export async function clientLoader() {
   return {
-    articles: await ArticleApi.getArticleList(),
+    pagination: await ArticleApi.getArticleList(),
   };
 }
 
 // 首页文章列表实现
 export default function HomePage(props: Route.ComponentProps) {
-  const articles = props.loaderData.articles;
+  const articles = props.loaderData.pagination.data;
   return (
     <View className="max-w-4xl mx-auto space-y-4">
       {articles.map((article) => (

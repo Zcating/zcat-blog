@@ -1,5 +1,5 @@
-import type dayjs from "dayjs";
-import { HttpClient } from "../http-client";
+import dayjs from "dayjs";
+import { HttpClient } from "../http/http-client";
 import { articles } from "../mock-data/articles-mock";
 
 export namespace ArticleApi {
@@ -8,6 +8,7 @@ export namespace ArticleApi {
     title: string;
     excerpt: string;
     createdAt: dayjs.Dayjs;
+    updatedAt: dayjs.Dayjs;
   }
 
   export interface ArticleDetail {
@@ -16,15 +17,31 @@ export namespace ArticleApi {
     excerpt: string;
     content: string;
     createdAt: dayjs.Dayjs;
+    updatedAt: dayjs.Dayjs;
   }
 
-  export async function getArticleList() {
-    // return HttpClient.get<Article[]>("/api/article/list");
-    return articles;
+  export async function getArticleList(): Promise<Pagination<Article>> {
+    const pagination =
+      await HttpClient.get<Pagination<Article>>("blog/article/list");
+    return {
+      ...pagination,
+      data: pagination.data.map((article) => ({
+        ...article,
+        createdAt: dayjs(article.createdAt),
+        updatedAt: dayjs(article.updatedAt),
+      })),
+    };
+    // return articles;
   }
 
   export async function getArticleDetail(id: string) {
-    // return HttpClient.get<ArticleDetail>(`/api/article/${id}`);
-    return articles.find((article) => article.id === id);
+    const article = await HttpClient.get<ArticleDetail>(`blog/article/${id}`);
+    return {
+      ...article,
+      createdAt: dayjs(article.createdAt),
+      updatedAt: dayjs(article.updatedAt),
+    };
+
+    // return articles.find((article) => article.id === id);
   }
 }

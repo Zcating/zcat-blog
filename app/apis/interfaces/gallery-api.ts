@@ -1,6 +1,6 @@
 import { photos } from "../mock-data/photos-mock";
 
-import { HttpClient } from "../http-client";
+import { HttpClient } from "../http/http-client";
 export namespace GalleryApi {
   export interface Photo {
     id: string;
