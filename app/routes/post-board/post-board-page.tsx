@@ -10,12 +10,12 @@ export function meta() {
 
 export async function clientLoader() {
   return {
-    articles: await ArticleApi.getArticleList(),
+    pagination: await ArticleApi.getArticleList(),
   };
 }
 
 export default function PostBoardPage({ loaderData }: Route.ComponentProps) {
-  const articles = loaderData.articles;
+  const articles = loaderData.pagination.data;
   return (
     <View className="max-w-4xl mx-auto space-y-4">
       <h1>博客文章</h1>

@@ -9,5 +9,6 @@ export * from "./ui/view";
 export * from "./ui/image";
 export * from "./ui/pagination";
 export * from "./ui/skeleton";
+export * from "./ui/markdown";
 
 export * from "./utils";
