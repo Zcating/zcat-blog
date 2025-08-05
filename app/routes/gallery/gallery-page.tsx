@@ -61,7 +61,7 @@ export function HydrateFallback() {
     <Grid
       cols={3}
       columnClassName="px-40"
-      items={[0, 0, 0, 0, 0, 0, 0]}
+      items={Array.from({ length: 9 }, (_, i) => i)}
       renderItem={() => <Skeleton className="w-full aspect-3/2 rounded-md" />}
     />
   );
