@@ -1,4 +1,4 @@
-interface Pagination<T> {
+interface Pagination<T = any> {
   page: number;
   pageSize: number;
   total: number;

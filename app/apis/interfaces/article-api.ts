@@ -21,11 +21,10 @@ export namespace ArticleApi {
   }
 
   export async function getArticleList(): Promise<Pagination<Article>> {
-    const pagination =
-      await HttpClient.get<Pagination<Article>>("blog/article/list");
+    const pagination = await HttpClient.get<Pagination>("blog/article/list");
     return {
       ...pagination,
-      data: pagination.data.map((article) => ({
+      data: pagination.data.map((article: any) => ({
         ...article,
         createdAt: dayjs(article.createdAt),
         updatedAt: dayjs(article.updatedAt),
