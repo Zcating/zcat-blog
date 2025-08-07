@@ -1,10 +1,30 @@
 import React from "react";
 import { useGroups } from "../hooks/use-groups";
 import { cn } from "../utils";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const gridGapTv = cva("gap-4", {
+  variants: {
+    gap: {
+      sm: "gap-4",
+      md: "gap-8",
+      lg: "gap-12",
+      xl: "gap-16",
+      "2xl": "gap-24",
+      "3xl": "gap-32",
+      "4xl": "gap-40",
+    },
+  },
+});
+
+type GridGap = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+
 interface GridProps<T> {
   columnClassName?: string;
   rowClassName?: string;
   cols: number;
+  rowGap?: GridGap;
+  columnGap?: GridGap;
   items: T[];
   renderItem: (item: T) => React.ReactNode;
 }
@@ -23,11 +43,15 @@ export function Grid<T>(props: GridProps<T>) {
     [cols],
   );
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("flex flex-col", gridGapTv({ gap: props.rowGap }))}>
       {groups.map((items, index) => (
         <div
           key={`col-${index}`}
-          className={cn("flex w-full px-4 gap-3", props.columnClassName)}
+          className={cn(
+            "flex w-full px-4",
+            gridGapTv({ gap: props.columnGap }),
+            props.columnClassName,
+          )}
         >
           {items.map((item, index) => (
             <div

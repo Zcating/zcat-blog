@@ -33,7 +33,7 @@ export namespace GalleryApi {
   ): Promise<Pagination<Gallery>> {
     const pagination = await HttpClient.get<Pagination>("blog/gallery", {
       page: params.page,
-      pageSize: params.pageSize ?? 9,
+      pageSize: params.pageSize ?? 8,
     });
     return {
       ...pagination,
@@ -41,13 +41,26 @@ export namespace GalleryApi {
         ...gallery,
         createdAt: dayjs(gallery.createdAt),
         updatedAt: dayjs(gallery.updatedAt),
-        cover: gallery.cover
-          ? {
-              ...gallery.cover,
-              url: "/static" + gallery.cover.url,
-            }
-          : undefined,
+        cover: transformPhoto(gallery.cover),
       })),
     };
+  }
+
+  export async function getGalleryDetail(id: string): Promise<GalleryDetail> {
+    const gallery = await HttpClient.get<GalleryDetail>(`blog/gallery/${id}`);
+    return {
+      ...gallery,
+      createdAt: dayjs(gallery.createdAt),
+      updatedAt: dayjs(gallery.updatedAt),
+      cover: transformPhoto(gallery.cover),
+      photos: gallery.photos.map(transformPhoto),
+    };
+  }
+
+  export function transformPhoto<T extends Photo | undefined>(photo: T): T {
+    if (photo) {
+      photo.url = "/static" + photo.url;
+    }
+    return photo;
   }
 }
