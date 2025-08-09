@@ -1,5 +1,4 @@
 import { GalleryApi } from "@blog/apis";
-import type { Route } from "./gallery/+types/gallery-detail-page";
 import {
   Carousel,
   CarouselContent,
@@ -7,6 +6,8 @@ import {
   Image,
   View,
 } from "@blog/components";
+import type { Route } from "./+types/gallery.id";
+import { PhotoPoster } from "@blog/modules";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const gallery = await GalleryApi.getGalleryDetail(params.id);
@@ -17,20 +18,21 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 
 export default function GalleryDetailPage(props: Route.ComponentProps) {
   const gallery = props.loaderData.gallery;
-  console.log(gallery);
   return (
-    <View className="flex flex-row items-center justify-center">
+    <View className="h-screen overflow-hidden flex flex-row items-center justify-center">
       <Carousel>
         <CarouselContent>
-          <CarouselItem className="">
-            <Image src={gallery.cover?.url} alt={gallery.name} />
-          </CarouselItem>
+          {gallery.cover && (
+            <CarouselItem className="">
+              <PhotoPoster photo={gallery.cover} />
+            </CarouselItem>
+          )}
           {gallery.photos.map((item) => (
             <CarouselItem
               key={item.id}
               className="flex items-center justify-center"
             >
-              <Image src={item.url} alt={item.name} />
+              <PhotoPoster photo={item} />
             </CarouselItem>
           ))}
         </CarouselContent>

@@ -9,8 +9,8 @@ import {
   View,
   Waterfall,
 } from "@blog/components";
-import type { Route } from "./gallery/+types/gallery-list-page";
 import { useNavigate } from "react-router";
+import type { Route } from "./+types/gallery";
 
 export function meta() {
   return [{ title: "相册" }, { name: "description", content: "个人技术博客" }];

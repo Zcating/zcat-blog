@@ -1,7 +1,7 @@
 import { ArticleApi } from "@blog/apis";
 import { Link } from "react-router";
 import type { Route } from "./post-board/+types/post-board-page";
-import { Card, View } from "@blog/components";
+import { View } from "@blog/components";
 import { PostExcerptCard } from "@blog/modules/post";
 
 export function meta() {

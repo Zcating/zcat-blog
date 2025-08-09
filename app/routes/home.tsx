@@ -1,8 +1,8 @@
 import { View } from "@blog/components";
 import { ArticleApi } from "@blog/apis";
-import type { Route } from "./+types/home-page";
 import { PostExcerptCard } from "@blog/modules";
 import { Link } from "react-router";
+import type { Route } from "./+types/home";
 
 export function meta() {
   return [

@@ -1,6 +1,7 @@
 import { View } from "@blog/components";
 import { PostContentView } from "@blog/modules";
 import { ArticleApi } from "@blog/apis";
+import type { Route } from "./+types/post-board.id";
 
 export function meta() {
   return [{ title: "文章" }, { name: "description", content: "个人技术博客" }];
