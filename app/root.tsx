@@ -1,3 +1,5 @@
+import type React from "react";
+
 import {
   isRouteErrorResponse,
   Links,
@@ -23,10 +25,6 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-import type React from "react";
-
-import { BlogHeader, BlogFooter, BlogContent } from "@blog/modules";
-
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -37,9 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="min-h-screen bg-background">
-        <BlogHeader />
-        <BlogContent>{children}</BlogContent>
-        <BlogFooter />
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

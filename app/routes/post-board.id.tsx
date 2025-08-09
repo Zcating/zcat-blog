@@ -1,7 +1,5 @@
 import { View } from "@blog/components";
 import { PostContentView } from "@blog/modules";
-import { useParams, useRouteError } from "react-router";
-import type { Route } from "./+types/post-board-detail-page";
 import { ArticleApi } from "@blog/apis";
 
 export function meta() {

@@ -1,5 +1,5 @@
 import { GalleryApi } from "@blog/apis";
-import type { Route } from "./+types/gallery-detail-page";
+import type { Route } from "./gallery/+types/gallery-detail-page";
 import {
   Carousel,
   CarouselContent,
@@ -26,7 +26,10 @@ export default function GalleryDetailPage(props: Route.ComponentProps) {
             <Image src={gallery.cover?.url} alt={gallery.name} />
           </CarouselItem>
           {gallery.photos.map((item) => (
-            <CarouselItem key={item.id} className="">
+            <CarouselItem
+              key={item.id}
+              className="flex items-center justify-center"
+            >
               <Image src={item.url} alt={item.name} />
             </CarouselItem>
           ))}

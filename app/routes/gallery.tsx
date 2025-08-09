@@ -9,7 +9,7 @@ import {
   View,
   Waterfall,
 } from "@blog/components";
-import type { Route } from "./+types/gallery-list-page";
+import type { Route } from "./gallery/+types/gallery-list-page";
 import { useNavigate } from "react-router";
 
 export function meta() {
