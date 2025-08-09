@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@blog/components/utils"
 import { Button } from "@blog/components/ui/button"
+import { useCarouselWheel } from "@blog/components/hooks"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -17,6 +18,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  scrollbarable?: boolean
 }
 
 type CarouselContextProps = {
@@ -86,6 +88,13 @@ function Carousel({
     [scrollPrev, scrollNext]
   )
 
+  // 使用自定义 hook 处理滚轮功能
+  const { handleWheel } = useCarouselWheel({
+    scrollNext,
+    scrollPrev,
+    scrollbarable: props.scrollbarable,
+  })
+
   React.useEffect(() => {
     if (!api || !setApi) return
     setApi(api)
@@ -118,6 +127,7 @@ function Carousel({
     >
       <div
         onKeyDownCapture={handleKeyDown}
+        onWheel={handleWheel}
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"

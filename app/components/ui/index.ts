@@ -12,3 +12,4 @@ export * from "./skeleton";
 export * from "./markdown";
 export * from "./button";
 export * from "./waterfall";
+export * from "./aspect-ratio";

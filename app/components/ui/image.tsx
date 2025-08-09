@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 
 type ContentMode = "cover" | "contain" | "fill" | "none" | "scale-down";
 
-interface ImageProps {
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src?: string;
   alt?: string;
   className?: string;
@@ -26,12 +26,13 @@ const imageTv = tv({
 });
 
 export function Image(props: ImageProps) {
-  const { src, alt, className, contentMode } = props;
+  const { src, alt, className, contentMode, ...rest } = props;
   return (
     <img
       className={cn(imageTv({ contentMode }), className)}
       src={src}
       alt={alt}
+      {...rest}
     />
   );
 }
