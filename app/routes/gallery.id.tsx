@@ -4,7 +4,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  Image,
+  CarouselPointer,
+  IconClose,
   View,
   type CarouselApi,
 } from "@blog/components";
@@ -12,6 +13,7 @@ import type { Route } from "./+types/gallery.id";
 import { PhotoPoster } from "@blog/modules";
 import React from "react";
 import { useNavigate } from "react-router";
+import { Assets } from "@blog/assets";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const gallery = await GalleryApi.getGalleryDetail(params.id);
@@ -42,7 +44,7 @@ export default function GalleryDetailPage(props: Route.ComponentProps) {
   const back = () => {
     navigate(`/gallery`);
   };
-
+  console.log(`url("${Assets.iconLeft}") auto`);
   return (
     <View
       className="h-screen overflow-hidden flex flex-row items-center justify-center"
@@ -65,6 +67,7 @@ export default function GalleryDetailPage(props: Route.ComponentProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPointer />
       </Carousel>
       {current > 0 && (
         <View className="absolute bottom-0 left-0 right-0 flex items-center h-20">
@@ -84,6 +87,9 @@ export default function GalleryDetailPage(props: Route.ComponentProps) {
           </View>
         </View>
       )}
+      <Button className="absolute top-4 right-4" variant="link" onClick={back}>
+        <IconClose color="white" />
+      </Button>
     </View>
   );
 }
